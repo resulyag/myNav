@@ -3,7 +3,7 @@ import {Button, SafeAreaView, Text} from 'react-native';
 
 const Home = props => {
   const GoToProductScreen = () => {
-    props.navigation.navigate('Product');
+    props.navigation.navigate('Profile');
   };
 
   return (

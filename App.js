@@ -2,17 +2,26 @@ import React from 'react';
 import {SafeAreaView, Text, View, Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
+
 import Home from './screens/Home';
 import Product from './screens/Product';
 
-// const Stack = createNativeStackNavigator();
+import Profile from './screens/Profile/Profile';
+import ProfileEdit from './screens/Profile/ProfileEdit';
+
+import Members from './screens/Members/Members';
+import MemberDetail from './screens/Members/MemberDetail';
+
+const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 function CustomDrawerContent(props) {
   return (
@@ -40,15 +49,58 @@ function Feed({navigation}) {
   );
 }
 
+const ProfileStackNavigator = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="Home">
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="ProfileEdit" component={ProfileEdit} />
+    </Stack.Navigator>
+  );
+};
+
+const MemberStackNavigator = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="Member">
+      <Stack.Screen name="Member" component={Members} />
+      <Stack.Screen name="MemberDetail" component={MemberDetail} />
+    </Stack.Navigator>
+  );
+};
+
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="MemberStackNavigator">
+      <Tab.Screen
+        name="ProfileStackNavigator"
+        component={ProfileStackNavigator}
+      />
+      <Tab.Screen
+        name="MemberStackNavigator"
+        component={MemberStackNavigator}
+      />
+    </Tab.Navigator>
+  );
+};
+
 const App = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator
-        initialRouteName="Feed"
+        initialRouteName="ProfileStackNavigator"
         useLegacyImplementation
         drawerContent={props => <CustomDrawerContent {...props} />}>
-        <Drawer.Screen name="Feed" component={Feed} />
-        <Drawer.Screen name="Product" component={Product} />
+        <Drawer.Screen name="TabNavigator" component={TabNavigator} />
+        {/*<Drawer.Screen*/}
+        {/*  name="MemberStackNavigator"*/}
+        {/*  component={MemberStackNavigator}*/}
+        {/*/>*/}
       </Drawer.Navigator>
     </NavigationContainer>
   );
