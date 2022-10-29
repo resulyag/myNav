@@ -3,12 +3,12 @@ import {Button, SafeAreaView, Text} from 'react-native';
 
 const Profile = props => {
   const gotoscreen = () => {
-    props.navigation.navigate('ProfileEdit');
+    props.navigation.navigate('MemberDetail');
   };
   return (
     <SafeAreaView>
       <Text>Hello Profile</Text>
-      <Button title="Go to profile edit" onPress={gotoscreen} />
+      <Button title="Go to MemberDetail" onPress={gotoscreen} />
     </SafeAreaView>
   );
 };
